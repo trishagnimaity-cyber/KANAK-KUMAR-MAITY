@@ -3,882 +3,490 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Kanak Kumar Maity</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Questrial&display=swap" rel="stylesheet">
+<title>Admin – Kanak Kumar Maity</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --coal:    #080706;
-  --ash:     #111009;
-  --stone:   #1c1a16;
-  --bronze:  #9e6b2e;
-  --burnish: #c8893c;
-  --gold:    #e8b96a;
-  --dust:    #7a6e5e;
-  --parch:   #d4c9b4;
-  --red:     #a63222;
-  --green:   #2a6b3c;
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--coal); color:var(--parch); font-family:'Questrial',sans-serif; min-height:100vh; }
+  :root {
+    --gold: #c9a84c;
+    --dark: #0d0b08;
+    --cream: #f5f0e8;
+    --bronze: #8b6914;
+    --muted: #7a7060;
+    --panel: #13110d;
+    --red: #c0392b;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--dark); color:var(--cream); font-family:'Raleway',sans-serif; min-height:100vh; }
 
-/* ── LOGIN ── */
-#loginPage {
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: radial-gradient(ellipse at center, #1a1408 0%, var(--coal) 70%);
-}
+  /* ── LOGIN ── */
+  #loginPage {
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(ellipse at center, #1a1408 0%, #0d0b08 70%);
+  }
+  .login-box {
+    width:100%; max-width:420px; padding:3rem;
+    border:1px solid rgba(201,168,76,.25); background:var(--panel); text-align:center;
+  }
+  .login-logo { font-family:'Cinzel',serif; font-size:1.8rem; color:var(--gold); margin-bottom:.3rem; }
+  .login-sub { font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); margin-bottom:2.5rem; }
+  .login-box input {
+    width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.2);
+    color:var(--cream); padding:.85rem 1rem; font-family:'Raleway',sans-serif; font-size:.9rem;
+    outline:none; margin-bottom:1rem; transition:border .2s;
+  }
+  .login-box input:focus { border-color:var(--gold); }
+  .login-btn {
+    width:100%; background:var(--gold); color:var(--dark); border:none; padding:.9rem;
+    font-family:'Cinzel',serif; font-size:.9rem; letter-spacing:.15em; cursor:pointer; transition:background .2s;
+  }
+  .login-btn:hover { background:var(--bronze); color:var(--cream); }
+  .login-error { color:var(--red); font-size:.8rem; margin-top:1rem; display:none; }
+  .back-link { display:inline-block; margin-top:1.5rem; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+  .back-link:hover { color:var(--gold); }
 
-.login-box {
-  width:100%;
-  max-width:420px;
-  padding:3.5rem;
-  background:var(--ash);
-  border:1px solid rgba(158,107,46,.2);
-  position:relative;
-}
-.login-box::before {
-  content:'';
-  position:absolute;
-  top:0; left:10%; right:10%;
-  height:2px;
-  background:linear-gradient(90deg, transparent, var(--bronze), transparent);
-}
+  /* ── ADMIN PANEL ── */
+  #adminPage { display:none; }
+  .admin-header {
+    background:rgba(13,11,8,.9); border-bottom:1px solid rgba(201,168,76,.2);
+    padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:10;
+  }
+  .admin-title { font-family:'Cinzel',serif; color:var(--gold); font-size:1.1rem; letter-spacing:.1em; }
+  .hdr-btn {
+    font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; background:transparent;
+    border:1px solid rgba(201,168,76,.3); color:var(--muted); padding:.5rem 1.2rem; cursor:pointer;
+    font-family:'Raleway',sans-serif; transition:.2s; text-decoration:none; display:inline-block;
+  }
+  .hdr-btn:hover { border-color:var(--gold); color:var(--gold); }
 
-.login-logo {
-  font-family:'Playfair Display',serif;
-  font-size:2rem;
-  font-weight:700;
-  color:var(--gold);
-  text-align:center;
-  margin-bottom:.3rem;
-}
-.login-tagline {
-  text-align:center;
-  font-size:.62rem;
-  letter-spacing:.45em;
-  text-transform:uppercase;
-  color:var(--dust);
-  margin-bottom:3rem;
-}
+  .admin-body { max-width:900px; margin:0 auto; padding:3rem 2rem; }
 
-.login-field {
-  margin-bottom:1rem;
-}
-.login-field label {
-  display:block;
-  font-size:.6rem;
-  letter-spacing:.4em;
-  text-transform:uppercase;
-  color:var(--bronze);
-  margin-bottom:.5rem;
-}
-.login-field input {
-  width:100%;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(158,107,46,.2);
-  border-bottom-color:rgba(158,107,46,.4);
-  color:var(--parch);
-  padding:.85rem 1rem;
-  font-family:'Questrial',sans-serif;
-  font-size:.95rem;
-  outline:none;
-  transition:border-color .2s;
-}
-.login-field input:focus { border-color:var(--bronze); }
+  /* Cloudinary notice */
+  .setup-box {
+    background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.2);
+    border-left:3px solid var(--gold); padding:1.5rem 2rem; margin-bottom:2.5rem;
+  }
+  .setup-box h3 { font-family:'Cinzel',serif; color:var(--gold); font-size:.95rem; margin-bottom:.8rem; }
+  .setup-box p { font-size:.85rem; color:var(--muted); line-height:1.8; }
+  .setup-box ol { margin:.8rem 0 0 1.5rem; }
+  .setup-box ol li { font-size:.85rem; color:var(--muted); line-height:1.8; }
+  .setup-box code { background:rgba(0,0,0,.4); color:var(--gold); padding:.1rem .35rem; font-size:.8rem; }
 
-.login-btn {
-  width:100%;
-  margin-top:1.5rem;
-  background:var(--burnish);
-  color:var(--coal);
-  border:none;
-  padding:1rem;
-  font-family:'Playfair Display',serif;
-  font-size:.95rem;
-  font-weight:700;
-  letter-spacing:.1em;
-  cursor:pointer;
-  transition:background .25s;
-}
-.login-btn:hover { background:var(--gold); }
+  /* Config section */
+  .config-section {
+    background:var(--panel); border:1px solid rgba(201,168,76,.15); padding:2rem; margin-bottom:2rem;
+  }
+  .config-section h2 {
+    font-family:'Cinzel',serif; font-size:1rem; color:var(--gold); margin-bottom:1.5rem;
+    padding-bottom:.8rem; border-bottom:1px solid rgba(201,168,76,.1);
+  }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; }
+  .field { display:flex; flex-direction:column; gap:.4rem; }
+  .field label { font-size:.6rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); }
+  .field input {
+    background:rgba(0,0,0,.3); border:1px solid rgba(201,168,76,.15); color:var(--cream);
+    padding:.7rem 1rem; font-family:'Raleway',sans-serif; font-size:.9rem; outline:none; transition:border .2s;
+  }
+  .field input:focus { border-color:var(--gold); }
+  .field .hint { font-size:.65rem; color:var(--muted); }
+  .save-btn {
+    background:transparent; border:1px solid var(--bronze); color:var(--bronze);
+    padding:.6rem 1.8rem; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase;
+    cursor:pointer; font-family:'Raleway',sans-serif; transition:.2s; margin-top:.5rem;
+  }
+  .save-btn:hover { background:var(--bronze); color:var(--dark); }
 
-.login-error {
-  color:#c0392b;
-  font-size:.8rem;
-  text-align:center;
-  margin-top:1rem;
-  display:none;
-}
+  /* Upload section */
+  .upload-section {
+    background:var(--panel); border:1px solid rgba(201,168,76,.15); padding:2rem; margin-bottom:2rem;
+  }
+  .upload-section h2 {
+    font-family:'Cinzel',serif; font-size:1rem; color:var(--gold); margin-bottom:1.5rem;
+    padding-bottom:.8rem; border-bottom:1px solid rgba(201,168,76,.1);
+  }
+  .drop-zone {
+    border:2px dashed rgba(201,168,76,.25); padding:2.5rem; text-align:center;
+    cursor:pointer; transition:border .2s, background .2s; margin-bottom:1.2rem; position:relative;
+  }
+  .drop-zone:hover, .drop-zone.over { border-color:var(--gold); background:rgba(201,168,76,.04); }
+  .drop-zone input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .drop-icon { font-size:2rem; margin-bottom:.5rem; display:block; }
+  .drop-text { font-size:.85rem; color:var(--muted); line-height:1.7; }
 
-.back-link {
-  display:block;
-  text-align:center;
-  margin-top:2rem;
-  font-size:.62rem;
-  letter-spacing:.35em;
-  text-transform:uppercase;
-  color:var(--dust);
-  text-decoration:none;
-  transition:color .2s;
-}
-.back-link:hover { color:var(--bronze); }
+  .progress-wrap { display:none; margin-bottom:1rem; }
+  .progress-bar { background:rgba(201,168,76,.1); height:3px; }
+  .progress-fill { height:100%; background:var(--gold); width:0%; transition:width .3s; }
+  .progress-label { font-size:.7rem; color:var(--gold); margin-top:.4rem; letter-spacing:.15em; }
 
-/* ── ADMIN PANEL ── */
-#adminPage { display:none; }
+  #previewImg { display:none; max-height:120px; margin-bottom:1rem; border:1px solid rgba(201,168,76,.2); }
 
-.admin-bar {
-  position:sticky;
-  top:0; z-index:100;
-  background:var(--ash);
-  border-bottom:1px solid rgba(158,107,46,.15);
-  padding:1rem 2.5rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
+  .meta-row { display:grid; grid-template-columns:1fr 100px; gap:1rem; margin-bottom:1rem; }
+  .meta-row input {
+    background:rgba(0,0,0,.3); border:1px solid rgba(201,168,76,.15); color:var(--cream);
+    padding:.75rem 1rem; font-family:'Raleway',sans-serif; font-size:.9rem; outline:none; transition:border .2s;
+  }
+  .meta-row input:focus { border-color:var(--gold); }
+  .meta-row input::placeholder { color:var(--muted); opacity:.6; }
 
-.admin-bar-title {
-  font-family:'Playfair Display',serif;
-  font-size:1rem;
-  color:var(--gold);
-  display:flex;
-  align-items:center;
-  gap:.8rem;
-}
-.admin-bar-title::before {
-  content:'';
-  width:6px; height:6px;
-  border-radius:50%;
-  background:var(--burnish);
-  display:inline-block;
-}
+  .add-btn {
+    background:var(--gold); color:var(--dark); border:none; padding:.8rem 2rem;
+    font-family:'Cinzel',serif; font-size:.9rem; cursor:pointer; transition:background .2s;
+  }
+  .add-btn:hover { background:var(--bronze); color:var(--cream); }
+  .add-btn:disabled { opacity:.4; cursor:not-allowed; }
 
-.bar-actions {
-  display:flex;
-  gap:1rem;
-  align-items:center;
-}
+  /* Gallery manage */
+  .manage-section h2 {
+    font-family:'Cinzel',serif; font-size:1rem; color:var(--gold); margin-bottom:1.5rem;
+    padding-bottom:.8rem; border-bottom:1px solid rgba(201,168,76,.1);
+  }
+  .manage-grid {
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:1px;
+    background:rgba(201,168,76,.08);
+  }
+  .manage-card { background:var(--panel); overflow:hidden; }
+  .manage-card img { width:100%; height:150px; object-fit:cover; display:block; filter:sepia(.15); transition:filter .3s; }
+  .manage-card:hover img { filter:sepia(0); }
+  .card-bottom { padding:.75rem; display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
+  .card-title { font-size:.78rem; color:var(--cream); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .card-year { font-size:.7rem; color:var(--gold); }
+  .del-btn {
+    background:transparent; border:1px solid rgba(192,57,43,.4); color:var(--red);
+    padding:.3rem .6rem; font-size:.65rem; cursor:pointer; font-family:'Raleway',sans-serif; transition:.2s;
+  }
+  .del-btn:hover { background:var(--red); border-color:var(--red); color:#fff; }
+  .empty-manage { text-align:center; color:var(--muted); font-style:italic; padding:2.5rem; grid-column:1/-1; }
 
-.bar-btn {
-  font-size:.62rem;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  padding:.5rem 1.2rem;
-  border:1px solid rgba(158,107,46,.3);
-  background:transparent;
-  color:var(--dust);
-  cursor:pointer;
-  font-family:'Questrial',sans-serif;
-  text-decoration:none;
-  display:inline-block;
-  transition:.2s;
-}
-.bar-btn:hover { border-color:var(--bronze); color:var(--bronze); }
+  /* Toast */
+  .toast {
+    position:fixed; bottom:2rem; right:2rem; padding:.8rem 1.6rem; font-size:.78rem;
+    opacity:0; transform:translateY(8px); transition:.3s; z-index:9999; pointer-events:none;
+    font-family:'Cinzel',serif; letter-spacing:.08em;
+  }
+  .toast.ok  { background:var(--gold); color:var(--dark); }
+  .toast.err { background:var(--red); color:#fff; }
+  .toast.show { opacity:1; transform:translateY(0); }
 
-.logout-btn { border-color:rgba(166,50,34,.3); color:rgba(166,50,34,.7); }
-.logout-btn:hover { border-color:var(--red); color:var(--red); }
-
-/* Setup notice */
-.setup-notice {
-  background:rgba(158,107,46,.08);
-  border:1px solid rgba(158,107,46,.25);
-  border-left:3px solid var(--bronze);
-  padding:1.5rem 2rem;
-  margin:2rem auto;
-  max-width:900px;
-}
-.setup-notice h3 {
-  font-family:'Playfair Display',serif;
-  color:var(--gold);
-  margin-bottom:.8rem;
-  font-size:1rem;
-}
-.setup-notice p {
-  font-size:.88rem;
-  color:var(--dust);
-  line-height:1.8;
-}
-.setup-notice code {
-  background:rgba(0,0,0,.4);
-  color:var(--burnish);
-  padding:.15rem .4rem;
-  font-size:.82rem;
-}
-.setup-notice a { color:var(--gold); }
-.setup-notice ol { margin-left:1.5rem; margin-top:.8rem; }
-.setup-notice ol li { margin-bottom:.4rem; font-size:.88rem; color:var(--dust); line-height:1.7; }
-
-.admin-body {
-  max-width:960px;
-  margin:0 auto;
-  padding:2.5rem 2rem 4rem;
-}
-
-/* Cloudinary Config */
-.config-section {
-  background:var(--stone);
-  border:1px solid rgba(158,107,46,.12);
-  padding:2rem;
-  margin-bottom:2.5rem;
-}
-.config-section h2 {
-  font-family:'Playfair Display',serif;
-  font-size:1rem;
-  color:var(--burnish);
-  margin-bottom:1.5rem;
-  padding-bottom:.8rem;
-  border-bottom:1px solid rgba(158,107,46,.12);
-  display:flex;
-  align-items:center;
-  gap:.7rem;
-}
-.config-section h2 .badge {
-  font-size:.55rem;
-  letter-spacing:.3em;
-  padding:.2rem .6rem;
-  border:1px solid rgba(158,107,46,.4);
-  color:var(--bronze);
-  font-family:'Questrial',sans-serif;
-}
-
-.config-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1rem;
-}
-
-.field {
-  display:flex;
-  flex-direction:column;
-  gap:.45rem;
-}
-.field label {
-  font-size:.6rem;
-  letter-spacing:.35em;
-  text-transform:uppercase;
-  color:var(--bronze);
-}
-.field input {
-  background:rgba(0,0,0,.3);
-  border:1px solid rgba(158,107,46,.15);
-  color:var(--parch);
-  padding:.7rem 1rem;
-  font-family:'Questrial',sans-serif;
-  font-size:.9rem;
-  outline:none;
-  transition:border-color .2s;
-}
-.field input:focus { border-color:var(--bronze); }
-.field .hint {
-  font-size:.68rem;
-  color:var(--dust);
-  opacity:.7;
-}
-
-.save-config-btn {
-  margin-top:1.2rem;
-  background:transparent;
-  border:1px solid var(--bronze);
-  color:var(--bronze);
-  padding:.65rem 1.8rem;
-  font-size:.65rem;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  cursor:pointer;
-  font-family:'Questrial',sans-serif;
-  transition:.2s;
-}
-.save-config-btn:hover { background:var(--bronze); color:var(--coal); }
-
-/* Upload section */
-.upload-section {
-  background:var(--stone);
-  border:1px solid rgba(158,107,46,.12);
-  padding:2rem;
-  margin-bottom:2.5rem;
-}
-.upload-section h2 {
-  font-family:'Playfair Display',serif;
-  font-size:1rem;
-  color:var(--burnish);
-  margin-bottom:1.5rem;
-  padding-bottom:.8rem;
-  border-bottom:1px solid rgba(158,107,46,.12);
-}
-
-.upload-mode-tabs {
-  display:flex;
-  gap:0;
-  margin-bottom:1.5rem;
-  border:1px solid rgba(158,107,46,.2);
-  width:fit-content;
-}
-.tab-btn {
-  padding:.55rem 1.4rem;
-  font-size:.62rem;
-  letter-spacing:.3em;
-  text-transform:uppercase;
-  background:transparent;
-  border:none;
-  color:var(--dust);
-  cursor:pointer;
-  font-family:'Questrial',sans-serif;
-  transition:.2s;
-  border-right:1px solid rgba(158,107,46,.2);
-}
-.tab-btn:last-child { border-right:none; }
-.tab-btn.active { background:var(--bronze); color:var(--coal); }
-
-/* Drop zone */
-.drop-zone {
-  border:2px dashed rgba(158,107,46,.25);
-  padding:3rem 2rem;
-  text-align:center;
-  position:relative;
-  cursor:pointer;
-  transition:border-color .2s, background .2s;
-  margin-bottom:1.2rem;
-}
-.drop-zone:hover, .drop-zone.over { border-color:var(--burnish); background:rgba(158,107,46,.04); }
-.drop-zone input[type="file"] {
-  position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;
-}
-.drop-icon { font-size:2.2rem; margin-bottom:.8rem; display:block; }
-.drop-text { font-size:.82rem; color:var(--dust); line-height:1.7; }
-.drop-text strong { color:var(--parch); }
-
-/* URL mode */
-.url-input-wrap { display:none; }
-.url-input-wrap.active { display:block; }
-.upload-file-wrap.hidden { display:none; }
-
-.url-row {
-  display:flex;
-  gap:.8rem;
-  align-items:stretch;
-}
-.url-row input {
-  flex:1;
-  background:rgba(0,0,0,.3);
-  border:1px solid rgba(158,107,46,.2);
-  color:var(--parch);
-  padding:.8rem 1rem;
-  font-family:'Questrial',sans-serif;
-  font-size:.9rem;
-  outline:none;
-}
-.url-row input:focus { border-color:var(--bronze); }
-
-.preview-row {
-  display:flex;
-  gap:1rem;
-  align-items:end;
-  margin-bottom:1rem;
-  flex-wrap:wrap;
-}
-
-#imgPreview {
-  display:none;
-  height:100px;
-  border:1px solid rgba(158,107,46,.2);
-}
-
-.meta-row {
-  display:grid;
-  grid-template-columns:1fr 120px;
-  gap:1rem;
-  margin-bottom:1rem;
-}
-.meta-row input {
-  background:rgba(0,0,0,.3);
-  border:1px solid rgba(158,107,46,.2);
-  color:var(--parch);
-  padding:.75rem 1rem;
-  font-family:'Questrial',sans-serif;
-  font-size:.9rem;
-  outline:none;
-  transition:border-color .2s;
-}
-.meta-row input:focus { border-color:var(--bronze); }
-.meta-row input::placeholder { color:var(--dust); opacity:.6; }
-
-.add-btn {
-  background:var(--burnish);
-  color:var(--coal);
-  border:none;
-  padding:.75rem 2rem;
-  font-family:'Playfair Display',serif;
-  font-size:.9rem;
-  font-weight:700;
-  cursor:pointer;
-  transition:background .2s;
-}
-.add-btn:hover { background:var(--gold); }
-.add-btn:disabled { opacity:.4; cursor:not-allowed; }
-
-/* Progress bar */
-.upload-progress {
-  display:none;
-  margin-top:1rem;
-}
-.progress-bar-wrap {
-  background:rgba(158,107,46,.1);
-  height:3px;
-  width:100%;
-}
-.progress-bar-fill {
-  height:100%;
-  background:var(--bronze);
-  width:0%;
-  transition:width .3s;
-}
-.progress-label {
-  font-size:.7rem;
-  color:var(--bronze);
-  margin-top:.5rem;
-  letter-spacing:.2em;
-}
-
-/* Gallery manage */
-.manage-section h2 {
-  font-family:'Playfair Display',serif;
-  font-size:1rem;
-  color:var(--burnish);
-  margin-bottom:1.5rem;
-  padding-bottom:.8rem;
-  border-bottom:1px solid rgba(158,107,46,.12);
-}
-
-.manage-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
-  gap:1px;
-  background:rgba(158,107,46,.08);
-}
-
-.manage-card {
-  background:var(--stone);
-  overflow:hidden;
-}
-
-.manage-card img {
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  display:block;
-  filter:sepia(.2) contrast(1.05);
-  transition:filter .3s;
-}
-.manage-card:hover img { filter:sepia(0) contrast(1.1); }
-
-.card-bottom {
-  padding:.75rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:.5rem;
-}
-
-.card-title {
-  font-size:.78rem;
-  color:var(--parch);
-  flex:1;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.card-year { font-size:.7rem; color:var(--bronze); }
-
-.del-btn {
-  background:transparent;
-  border:1px solid rgba(166,50,34,.35);
-  color:rgba(166,50,34,.7);
-  padding:.3rem .6rem;
-  font-size:.65rem;
-  cursor:pointer;
-  font-family:'Questrial',sans-serif;
-  transition:.2s;
-  white-space:nowrap;
-}
-.del-btn:hover { background:var(--red); border-color:var(--red); color:#fff; }
-
-.empty-manage {
-  text-align:center;
-  padding:3rem;
-  color:var(--dust);
-  font-style:italic;
-  font-size:.95rem;
-  grid-column:1/-1;
-}
-
-/* Toast */
-.toast {
-  position:fixed;
-  bottom:2rem; right:2rem;
-  padding:.85rem 1.8rem;
-  font-size:.78rem;
-  letter-spacing:.1em;
-  opacity:0;
-  transform:translateY(8px);
-  transition:.3s;
-  z-index:9999;
-  pointer-events:none;
-}
-.toast.success { background:var(--burnish); color:var(--coal); }
-.toast.error   { background:var(--red); color:#fff; }
-.toast.show    { opacity:1; transform:translateY(0); }
-
-@media (max-width:620px) {
-  .config-grid { grid-template-columns:1fr; }
-  .meta-row { grid-template-columns:1fr; }
-}
+  @media(max-width:600px){
+    .field-row { grid-template-columns:1fr; }
+    .meta-row  { grid-template-columns:1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN ── -->
+<!-- LOGIN -->
 <div id="loginPage">
   <div class="login-box">
     <div class="login-logo">KKM</div>
-    <div class="login-tagline">Admin Portal · Sculptor Portfolio</div>
-
-    <div class="login-field">
-      <label>Email</label>
-      <input type="email" id="emailIn" placeholder="your email" autocomplete="username">
-    </div>
-    <div class="login-field">
-      <label>Password</label>
-      <input type="password" id="passIn" placeholder="••••••••" autocomplete="current-password"
-        onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-
-    <button class="login-btn" onclick="doLogin()">Enter</button>
-    <div class="login-error" id="loginErr">Incorrect credentials. Try again.</div>
-    <a href="index.html" class="back-link">← Return to Portfolio</a>
+    <div class="login-sub">Admin Panel · Sculptor Portfolio</div>
+    <input type="email"    id="emailIn" placeholder="Email address" autocomplete="username">
+    <input type="password" id="passIn"  placeholder="Password" autocomplete="current-password"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Login</button>
+    <div class="login-error" id="loginErr">Incorrect email or password.</div>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
   </div>
 </div>
 
-<!-- ── ADMIN PANEL ── -->
+<!-- ADMIN -->
 <div id="adminPage">
-  <div class="admin-bar">
-    <div class="admin-bar-title">Kanak Kumar Maity &nbsp;—&nbsp; Admin Panel</div>
-    <div class="bar-actions">
-      <a href="index.html" class="bar-btn" target="_blank">View Portfolio ↗</a>
-      <button class="bar-btn logout-btn" onclick="doLogout()">Logout</button>
+  <div class="admin-header">
+    <span class="admin-title">Admin Panel — Kanak Kumar Maity</span>
+    <div style="display:flex;gap:.8rem;align-items:center">
+      <a href="index.html" target="_blank" class="hdr-btn">View Site ↗</a>
+      <button class="hdr-btn" style="border-color:rgba(192,57,43,.4);color:rgba(192,57,43,.7)" onclick="doLogout()">Logout</button>
     </div>
   </div>
 
   <div class="admin-body">
 
-    <!-- SETUP NOTICE -->
-    <div class="setup-notice" id="setupNotice">
-      <h3>⚙️ Cloudinary Setup (One-time — 5 minutes)</h3>
-      <p>To upload photos that are visible to everyone, you need a <strong>free Cloudinary account</strong>. Follow these steps:</p>
+    <!-- Cloudinary setup guide -->
+    <div class="setup-box" id="setupBox">
+      <h3>📷 Cloudinary Setup — Sirf Ek Baar</h3>
+      <p>Photo upload ke liye free Cloudinary account chahiye. Neeche Cloud Name aur Upload Preset daalo:</p>
       <ol>
-        <li>Go to <a href="https://cloudinary.com" target="_blank">cloudinary.com</a> → Sign Up Free (no credit card)</li>
-        <li>After login, go to <strong>Dashboard</strong> — you'll see your <code>Cloud Name</code></li>
-        <li>Go to <strong>Settings → Upload → Upload Presets</strong> → click <strong>Add upload preset</strong></li>
-        <li>Set <strong>Signing Mode = Unsigned</strong>, give it a name like <code>kkm_portfolio</code>, then Save</li>
-        <li>Enter your <strong>Cloud Name</strong> and <strong>Upload Preset</strong> in the fields below and save</li>
-        <li>Done! You can now upload photos directly from this panel 🎉</li>
+        <li><a href="https://cloudinary.com" target="_blank" style="color:var(--gold)">cloudinary.com</a> → Free Sign Up karo</li>
+        <li>Dashboard pe apna <strong>Cloud Name</strong> dikhega — copy karo</li>
+        <li>Settings → Upload → Upload Presets → <strong>Add Upload Preset</strong></li>
+        <li>Signing Mode = <code>Unsigned</code> rakho → naam daao <code>kkm_portfolio</code> → Save</li>
+        <li>Neeche woh values daalo aur Save karo ✅</li>
       </ol>
-      <p style="margin-top:.8rem;font-size:.8rem;color:var(--bronze)">Cloudinary free tier gives 25 GB storage — more than enough for hundreds of sculptures.</p>
     </div>
 
-    <!-- CLOUDINARY CONFIG -->
+    <!-- Cloudinary config -->
     <div class="config-section">
-      <h2>Cloudinary Settings <span class="badge">Required Once</span></h2>
-      <div class="config-grid">
+      <h2>☁️ Cloudinary Settings</h2>
+      <div class="field-row">
         <div class="field">
           <label>Cloud Name</label>
           <input type="text" id="cloudName" placeholder="e.g. mycloud123">
-          <span class="hint">Find this on your Cloudinary Dashboard</span>
+          <span class="hint">Cloudinary Dashboard pe milega</span>
         </div>
         <div class="field">
           <label>Upload Preset</label>
           <input type="text" id="uploadPreset" placeholder="e.g. kkm_portfolio">
-          <span class="hint">Create an unsigned preset in Settings → Upload</span>
+          <span class="hint">Settings → Upload → Upload Presets mein banao (Unsigned)</span>
         </div>
       </div>
-      <button class="save-config-btn" onclick="saveConfig()">Save Settings</button>
+      <button class="save-btn" onclick="saveCloudinaryConfig()">Save Cloudinary Settings</button>
     </div>
 
-    <!-- UPLOAD -->
+    <!-- Upload -->
     <div class="upload-section">
-      <h2>Add New Artwork</h2>
+      <h2>🖼️ Nayi Artwork Add Karo</h2>
 
-      <div class="upload-mode-tabs">
-        <button class="tab-btn active" onclick="switchTab('file')">Upload Photo</button>
-        <button class="tab-btn" onclick="switchTab('url')">Paste URL</button>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" accept="image/*" id="fileInput" onchange="onFileSelect(this.files[0])">
+        <span class="drop-icon">📸</span>
+        <div class="drop-text">Click karke photo choose karo ya yahan drag karo<br>
+          <small style="opacity:.6">(Photo Cloudinary pe upload hogi — hamesha ke liye save)</small></div>
       </div>
 
-      <!-- File upload -->
-      <div class="upload-file-wrap" id="fileWrap">
-        <div class="drop-zone" id="dropZone">
-          <input type="file" accept="image/*" id="fileInput" onchange="onFileSelect(this.files[0])">
-          <span class="drop-icon">📷</span>
-          <div class="drop-text"><strong>Click to choose</strong> or drag &amp; drop a photo<br>
-            <small>JPG, PNG, WebP — uploads to your Cloudinary account</small></div>
-        </div>
-        <div class="upload-progress" id="uploadProgress">
-          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
-          <div class="progress-label" id="progressLabel">Uploading...</div>
-        </div>
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label" id="progressLabel">Uploading...</div>
       </div>
 
-      <!-- URL paste -->
-      <div class="url-input-wrap" id="urlWrap">
-        <div class="url-row">
-          <input type="url" id="urlInput" placeholder="Paste Cloudinary or any public image URL here">
-          <button class="add-btn" onclick="previewUrl()" style="white-space:nowrap;font-size:.75rem;padding:.8rem 1.2rem">Preview</button>
-        </div>
-        <div style="margin-top:.8rem">
-          <img id="imgPreview" src="" alt="Preview">
-        </div>
+      <img id="previewImg" src="" alt="Preview">
+
+      <div class="meta-row">
+        <input type="text" id="titleInput" placeholder="Artwork title  (e.g. Seated Figure — Dokra Bronze)">
+        <input type="text" id="yearInput"  placeholder="Saal  (2022)">
       </div>
 
-      <!-- Meta -->
-      <div class="meta-row" style="margin-top:1.2rem">
-        <input type="text" id="titleInput" placeholder="Artwork title / description  (e.g. Seated Figure — Dokra Bronze)">
-        <input type="text" id="yearInput" placeholder="Year  (e.g. 2022)">
-      </div>
-
-      <button class="add-btn" id="addBtn" onclick="addArtwork()" disabled>Add to Gallery</button>
+      <button class="add-btn" id="addBtn" onclick="addArtwork()" disabled>Gallery Mein Add Karo</button>
     </div>
 
-    <!-- MANAGE -->
+    <!-- Manage -->
     <div class="manage-section">
-      <h2>Gallery — All Works</h2>
+      <h2>📂 Gallery Manage Karo</h2>
       <div class="manage-grid" id="manageGrid">
-        <div class="empty-manage">No artworks yet.</div>
+        <div class="empty-manage">Koi artwork nahi hai abhi.</div>
       </div>
     </div>
 
-  </div><!-- /admin-body -->
-</div><!-- /adminPage -->
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-/* ─── CREDENTIALS ─── */
-const DEF_EMAIL = 'kanakmaity111@gmail.com';
-const DEF_PASS  = 'KKMaity@2024';
+  // ── Firebase (hardcoded — no setup needed) ──
+  firebase.initializeApp({
+    apiKey:            "AIzaSyCupq8wPWF_yY7vJ4fqWk1MJZNePHN996U",
+    authDomain:        "kanak-maity.firebaseapp.com",
+    projectId:         "kanak-maity",
+    storageBucket:     "kanak-maity.firebasestorage.app",
+    messagingSenderId: "591071053602",
+    appId:             "1:591071053602:web:9b1cce3a49674cd12cc77b"
+  });
+  const db = firebase.firestore();
 
-function getCreds() {
-  return {
-    email: localStorage.getItem('kkm_adm_email') || DEF_EMAIL,
-    pass:  localStorage.getItem('kkm_adm_pass')  || DEF_PASS
-  };
-}
+  // ── Auth ──
+  const ADMIN_EMAIL = 'kanakmaity111@gmail.com';
+  const ADMIN_PASS  = 'KKMaity@2024';
 
-/* ─── AUTH ─── */
-function isLoggedIn() { return sessionStorage.getItem('kkm_auth') === '1'; }
+  function isLoggedIn() { return sessionStorage.getItem('kkm_auth') === '1'; }
 
-function doLogin() {
-  const e = document.getElementById('emailIn').value.trim();
-  const p = document.getElementById('passIn').value;
-  const c = getCreds();
-  if (e === c.email && p === c.pass) {
-    sessionStorage.setItem('kkm_auth','1');
-    showAdmin();
-  } else {
-    document.getElementById('loginErr').style.display = 'block';
+  function doLogin() {
+    const e = document.getElementById('emailIn').value.trim();
+    const p = document.getElementById('passIn').value;
+    if (e === ADMIN_EMAIL && p === ADMIN_PASS) {
+      sessionStorage.setItem('kkm_auth','1');
+      showAdmin();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+    }
   }
-}
 
-function doLogout() {
-  sessionStorage.removeItem('kkm_auth');
-  location.reload();
-}
-
-function showAdmin() {
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('adminPage').style.display = 'block';
-  loadConfig();
-  loadManage();
-}
-
-/* ─── CONFIG ─── */
-function loadConfig() {
-  const cn = localStorage.getItem('kkm_cloud_name') || '';
-  const up = localStorage.getItem('kkm_upload_preset') || '';
-  document.getElementById('cloudName').value = cn;
-  document.getElementById('uploadPreset').value = up;
-  if (cn && up) document.getElementById('setupNotice').style.display = 'none';
-}
-
-function saveConfig() {
-  const cn = document.getElementById('cloudName').value.trim();
-  const up = document.getElementById('uploadPreset').value.trim();
-  if (!cn || !up) { showToast('Please fill both fields','error'); return; }
-  localStorage.setItem('kkm_cloud_name', cn);
-  localStorage.setItem('kkm_upload_preset', up);
-  document.getElementById('setupNotice').style.display = 'none';
-  showToast('Cloudinary settings saved ✓','success');
-}
-
-/* ─── TABS ─── */
-function switchTab(mode) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('fileWrap').classList.toggle('hidden', mode==='url');
-  document.getElementById('urlWrap').classList.toggle('active', mode==='url');
-  pendingUrl = null;
-  if (mode==='file') {
-    document.getElementById('imgPreview').style.display='none';
-    document.getElementById('addBtn').disabled = true;
+  function doLogout() {
+    sessionStorage.removeItem('kkm_auth');
+    location.reload();
   }
-}
 
-/* ─── FILE UPLOAD to Cloudinary ─── */
-let pendingUrl = null;
-
-async function onFileSelect(file) {
-  if (!file) return;
-  const cn = localStorage.getItem('kkm_cloud_name');
-  const up = localStorage.getItem('kkm_upload_preset');
-  if (!cn || !up) {
-    showToast('Please save Cloudinary settings first!','error');
-    return;
+  function showAdmin() {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('adminPage').style.display = 'block';
+    loadCloudinaryConfig();
+    loadManage();
   }
-  // Show progress
-  const prog = document.getElementById('uploadProgress');
-  const fill = document.getElementById('progressFill');
-  const label = document.getElementById('progressLabel');
-  prog.style.display = 'block';
-  fill.style.width = '0%';
-  label.textContent = 'Uploading to Cloudinary...';
 
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', up);
+  // ── Cloudinary config (localStorage mein save) ──
+  function loadCloudinaryConfig() {
+    const cn = localStorage.getItem('kkm_cloud_name') || '';
+    const up = localStorage.getItem('kkm_upload_preset') || '';
+    document.getElementById('cloudName').value    = cn;
+    document.getElementById('uploadPreset').value = up;
+    if (cn && up) document.getElementById('setupBox').style.display = 'none';
+  }
 
-  try {
+  function saveCloudinaryConfig() {
+    const cn = document.getElementById('cloudName').value.trim();
+    const up = document.getElementById('uploadPreset').value.trim();
+    if (!cn || !up) { showToast('Dono fields bharo!','err'); return; }
+    localStorage.setItem('kkm_cloud_name',    cn);
+    localStorage.setItem('kkm_upload_preset', up);
+    document.getElementById('setupBox').style.display = 'none';
+    showToast('Cloudinary settings save ho gaya ✓','ok');
+  }
+
+  // ── File upload to Cloudinary ──
+  let pendingUrl = null;
+
+  function onFileSelect(file) {
+    if (!file) return;
+    const cn = localStorage.getItem('kkm_cloud_name');
+    const up = localStorage.getItem('kkm_upload_preset');
+    if (!cn || !up) { showToast('Pehle Cloudinary settings save karo!','err'); return; }
+
+    const wrap  = document.getElementById('progressWrap');
+    const fill  = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+    wrap.style.display = 'block';
+    fill.style.width   = '0%';
+    label.textContent  = 'Uploading...';
+
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', up);
+
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `https://api.cloudinary.com/v1_1/${cn}/image/upload`);
+
     xhr.upload.onprogress = e => {
       if (e.lengthComputable) {
-        const pct = Math.round(e.loaded/e.total*100);
-        fill.style.width = pct+'%';
-        label.textContent = `Uploading... ${pct}%`;
+        const p = Math.round(e.loaded/e.total*100);
+        fill.style.width  = p + '%';
+        label.textContent = `Uploading... ${p}%`;
       }
     };
-    xhr.onload = function() {
+
+    xhr.onload = () => {
       if (xhr.status === 200) {
         const res = JSON.parse(xhr.responseText);
         pendingUrl = res.secure_url;
-        fill.style.width = '100%';
+        fill.style.width  = '100%';
         label.textContent = 'Upload complete ✓';
-        document.getElementById('addBtn').disabled = false;
-        showToast('Photo uploaded! Now add title & save.','success');
-        setTimeout(()=>{ prog.style.display='none'; }, 2000);
+        document.getElementById('previewImg').src          = pendingUrl;
+        document.getElementById('previewImg').style.display = 'block';
+        document.getElementById('addBtn').disabled          = false;
+        showToast('Photo upload ho gaya! Ab title daalo aur save karo.','ok');
+        setTimeout(() => wrap.style.display = 'none', 2000);
       } else {
-        showToast('Upload failed. Check Cloud Name & Preset.','error');
-        prog.style.display = 'none';
+        showToast('Upload fail hua — Cloud Name aur Preset check karo','err');
+        wrap.style.display = 'none';
       }
     };
-    xhr.onerror = () => { showToast('Upload error. Check your settings.','error'); prog.style.display='none'; };
-    xhr.send(formData);
-  } catch(err) {
-    showToast('Error: '+err.message,'error');
-    prog.style.display = 'none';
+    xhr.onerror = () => { showToast('Upload error','err'); wrap.style.display='none'; };
+    xhr.send(fd);
   }
-}
 
-/* ─── Drag & Drop ─── */
-const dz = document.getElementById('dropZone');
-dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
-dz.addEventListener('dragleave', () => dz.classList.remove('over'));
-dz.addEventListener('drop', e => {
-  e.preventDefault(); dz.classList.remove('over');
-  const f = e.dataTransfer.files[0];
-  if (f) { document.getElementById('fileInput').files = e.dataTransfer.files; onFileSelect(f); }
-});
-
-/* ─── URL MODE ─── */
-function previewUrl() {
-  const url = document.getElementById('urlInput').value.trim();
-  if (!url) return;
-  const img = document.getElementById('imgPreview');
-  img.src = url;
-  img.style.display = 'block';
-  pendingUrl = url;
-  document.getElementById('addBtn').disabled = false;
-}
-
-/* ─── GALLERY DATA ─── */
-function getWorks() { return JSON.parse(localStorage.getItem('kkm_works_v2') || '[]'); }
-function saveWorks(w) { localStorage.setItem('kkm_works_v2', JSON.stringify(w)); }
-
-function addArtwork() {
-  if (!pendingUrl) { showToast('No image selected','error'); return; }
-  const title = document.getElementById('titleInput').value.trim() || 'Untitled';
-  const year  = document.getElementById('yearInput').value.trim();
-  const works = getWorks();
-  works.unshift({ id: Date.now(), url: pendingUrl, title, year });
-  saveWorks(works);
-
-  // Reset
-  pendingUrl = null;
-  document.getElementById('titleInput').value = '';
-  document.getElementById('yearInput').value = '';
-  document.getElementById('fileInput').value = '';
-  document.getElementById('urlInput').value = '';
-  document.getElementById('imgPreview').style.display = 'none';
-  document.getElementById('addBtn').disabled = true;
-  document.getElementById('uploadProgress').style.display = 'none';
-
-  loadManage();
-  showToast('Artwork added to gallery ✓','success');
-}
-
-function deleteWork(id) {
-  if (!confirm('Remove this artwork from the gallery?')) return;
-  saveWorks(getWorks().filter(w => w.id !== id));
-  loadManage();
-  showToast('Removed.','success');
-}
-
-function loadManage() {
-  const works = getWorks();
-  const grid = document.getElementById('manageGrid');
-  if (!works.length) {
-    grid.innerHTML = '<div class="empty-manage">No artworks yet — upload your first piece above.</div>';
-    return;
-  }
-  grid.innerHTML = '';
-  works.forEach(w => {
-    const card = document.createElement('div');
-    card.className = 'manage-card';
-    card.innerHTML = `
-      <img src="${esc(w.url)}" alt="${esc(w.title)}" loading="lazy">
-      <div class="card-bottom">
-        <span class="card-title" title="${esc(w.title)}">${esc(w.title)}</span>
-        ${w.year ? `<span class="card-year">${esc(w.year)}</span>` : ''}
-        <button class="del-btn" onclick="deleteWork(${w.id})">Remove</button>
-      </div>`;
-    grid.appendChild(card);
+  // Drag & drop
+  const dz = document.getElementById('dropZone');
+  dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('over'); });
+  dz.addEventListener('dragleave', ()  => dz.classList.remove('over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('over');
+    const f = e.dataTransfer.files[0];
+    if (f) onFileSelect(f);
   });
-}
 
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+  // ── Add artwork to Firestore ──
+  async function addArtwork() {
+    if (!pendingUrl) return;
+    const title = document.getElementById('titleInput').value.trim() || 'Untitled';
+    const year  = document.getElementById('yearInput').value.trim();
 
-/* ─── TOAST ─── */
-let toastTimer;
-function showToast(msg, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type} show`;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
-}
+    document.getElementById('addBtn').disabled    = true;
+    document.getElementById('addBtn').textContent = 'Saving...';
 
-/* ─── INIT ─── */
-if (isLoggedIn()) showAdmin();
+    try {
+      await db.collection('artworks').add({
+        url:       pendingUrl,
+        title,
+        year,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      // Reset
+      pendingUrl = null;
+      document.getElementById('titleInput').value         = '';
+      document.getElementById('yearInput').value          = '';
+      document.getElementById('fileInput').value          = '';
+      document.getElementById('previewImg').style.display = 'none';
+      document.getElementById('addBtn').disabled          = false;
+      document.getElementById('addBtn').textContent       = 'Gallery Mein Add Karo';
+
+      showToast('Artwork add ho gaya! Website pe ab dikh raha hai ✓','ok');
+      loadManage();
+    } catch(err) {
+      showToast('Error: ' + err.message,'err');
+      document.getElementById('addBtn').disabled    = false;
+      document.getElementById('addBtn').textContent = 'Gallery Mein Add Karo';
+    }
+  }
+
+  // ── Delete artwork ──
+  async function deleteWork(docId) {
+    if (!confirm('Is artwork ko gallery se hatana chahte ho?')) return;
+    try {
+      await db.collection('artworks').doc(docId).delete();
+      showToast('Hata diya.','ok');
+      loadManage();
+    } catch(err) {
+      showToast('Error: ' + err.message,'err');
+    }
+  }
+
+  // ── Load manage grid ──
+  async function loadManage() {
+    const grid = document.getElementById('manageGrid');
+    grid.innerHTML = '<div class="empty-manage" style="opacity:.5">Loading...</div>';
+    try {
+      const snap = await db.collection('artworks').orderBy('createdAt','desc').get();
+      if (snap.empty) {
+        grid.innerHTML = '<div class="empty-manage">Abhi koi artwork nahi hai — upar se upload karo.</div>';
+        return;
+      }
+      grid.innerHTML = '';
+      snap.forEach(doc => {
+        const w = doc.data();
+        const card = document.createElement('div');
+        card.className = 'manage-card';
+        card.innerHTML = `
+          <img src="${esc(w.url)}" alt="${esc(w.title)}" loading="lazy">
+          <div class="card-bottom">
+            <span class="card-title" title="${esc(w.title)}">${esc(w.title)}</span>
+            ${w.year ? `<span class="card-year">${esc(w.year)}</span>` : ''}
+            <button class="del-btn" onclick="deleteWork('${doc.id}')">Hatao</button>
+          </div>`;
+        grid.appendChild(card);
+      });
+    } catch(err) {
+      grid.innerHTML = `<div class="empty-manage" style="color:#c0392b">Firebase error — please try again.<br><small>${err.message}</small></div>`;
+    }
+  }
+
+  function esc(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Toast ──
+  let toastTimer;
+  function showToast(msg, type='ok') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── Init ──
+  if (isLoggedIn()) showAdmin();
 </script>
 </body>
 </html>
